@@ -16,3 +16,35 @@ coverage/
 postgres_data/
 redis_data/
 minio_data/
+
+# ─── Secrets & private material (defense in depth) ────────────────────────
+# Block accidental commit of credential/key files even if outside .env.
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+*.cer
+*.keystore
+secrets/
+*.secret
+
+# ─── Local databases & generated artifacts ────────────────────────────────
+*.sqlite
+*.sqlite3
+*.db
+ruvector.db
+data/clips/
+data/uploads/
+data/exports/
+data/cache/
+*.mp4
+*.mp3
+*.wav
+*.webm
+*.mov
+
+# ─── Local backups created by tooling (do not commit) ──────────────────────
+.git.backup-*/
+*.bak
+*.orig

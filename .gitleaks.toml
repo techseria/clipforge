@@ -1,0 +1,55 @@
+# gitleaks config for ClipForge
+# https://github.com/gitleaks/gitleaks
+
+title = "ClipForge secret scanner"
+
+[extend]
+# Use gitleaks' default ruleset as the base.
+useDefault = true
+
+# ─── Project-specific detection rules ────────────────────────────────────
+
+# MiniMax coding-plan keys (sk-cp-...)
+[[rules]]
+id = "minimax-coding-plan-key"
+description = "MiniMax coding-plan API key"
+regex = '''sk-cp-[A-Za-z0-9_-]{15,}'''
+tags = ["secret", "api-key", "minimax"]
+
+# Gemini API keys (AQ.Ab8RN... format)
+[[rules]]
+id = "gemini-api-key"
+description = "Google Gemini API key"
+regex = '''AQ\.Ab8[A-Za-z0-9_-]{15,}'''
+tags = ["secret", "api-key", "google"]
+
+# Neon Postgres connection strings with embedded password
+[[rules]]
+id = "neon-postgres-connection"
+description = "Neon Postgres connection string with password"
+regex = '''postgres(ql)?://[^:]+:npg_[A-Za-z0-9]{10,}@'''
+tags = ["secret", "database", "neon"]
+
+# ─── Allow-list (false-positive suppression) ──────────────────────────────
+
+[allowlist]
+description = "ClipForge-specific allowlist"
+paths = [
+  '''node_modules/''',
+  '''dist/''',
+  '''build/''',
+  '''coverage/''',
+  '''.git.backup-.*''',
+  '''package-lock\.json''',
+  '''\.md$''',
+  '''docs/.*''',
+  '''ClipForge_PRD\.md''',
+  '''Tasks\.md''',
+  '''CHANGELOG\.md''',
+  '''AUTHORS''',
+  '''NOTICE''',
+  '''LICENSE''',
+  '''MAINTAINERS\.md''',
+  '''CONTRIBUTORS\.md''',
+  '''GOVERNANCE\.md''',
+]
