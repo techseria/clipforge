@@ -20,15 +20,6 @@ The product was designed around three real frustrations with off-the-shelf AI vi
 2. **Provider lock-in.** Output quality, latency, and cost vary wildly by provider. ClipForge lets you mix **Google Gemini Veo Pro / Flash** and **MiniMax Hailuo 2.3** per scene — use the cheap one for drafts, the expensive one for the hero shot.
 3. **No quota control.** A team running on a MiniMax coding-plan budget needs hard daily caps with a transparent UI. ClipForge enforces per-model daily limits, refunds quota on failed generations, and surfaces "1 generation left today" before the user clicks.
 
-## Status
-
-
-The full PRD that scoped this release is in [ClipForge_PRD.md](ClipForge_PRD.md).
-
-## Screenshots
-
-*Coming soon — please run the project locally (5 min) and add screenshots via PR.*
-
 ## Features
 
 ### Authoring
