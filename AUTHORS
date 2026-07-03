@@ -1,0 +1,48 @@
+# Authors of ClipForge
+
+ClipForge is developed and maintained by **Techseria** (https://techseria.com).
+
+## Maintainers
+
+- **Techseria Engineering** <engineering@techseria.com>
+  Original author, architecture, implementation, and ongoing development.
+
+## Contributors
+
+Thanks to everyone who has contributed to ClipForge.
+
+<!--
+Contributors will be listed here as pull requests are merged.
+Format:
+- Name (@github-handle) — <role/area> — since YYYY-MM
+-->
+
+To add yourself, please submit a PR updating this file with your contribution.
+
+## How to Contribute
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+
+## Origin
+
+ClipForge was developed by Techseria as a single-tenant AI video
+generation platform for marketers. The first version was designed to
+turn plain-language instructions into finished promotional videos by
+orchestrating three interchangeable AI video models:
+
+- Google Gemini Veo Pro
+- Google Gemini Veo Flash
+- MiniMax Hailuo 2.3
+
+The platform addresses a real problem: marketing teams need short,
+branded video content produced at scale, but most off-the-shelf
+generators are tied to a single provider and produce inconsistent
+output. ClipForge's value is in the workflow: project/scene model,
+global style propagation, regeneration history, FFmpeg merge with
+transitions, and per-user daily quota enforcement across providers.
+
+It is released as open source under the AGPL v3 so that other
+organizations facing the same problem can deploy, study, modify,
+and redistribute it under terms that keep the ecosystem open.
+
+© 2026 Techseria. Licensed under AGPL-3.0. See [LICENSE](LICENSE).

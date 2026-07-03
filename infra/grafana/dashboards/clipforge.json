@@ -1,0 +1,87 @@
+{
+  "title": "ClipForge — V1 Operations",
+  "uid": "clipforge-v1",
+  "schemaVersion": 38,
+  "timezone": "browser",
+  "refresh": "30s",
+  "time": { "from": "now-1h", "to": "now" },
+  "panels": [
+    {
+      "id": 1,
+      "type": "timeseries",
+      "title": "Generation queue depth",
+      "datasource": "Prometheus",
+      "targets": [
+        { "expr": "bullmq_jobs_waiting{queue=\"generation\"}", "legendFormat": "waiting" },
+        { "expr": "bullmq_jobs_active{queue=\"generation\"}", "legendFormat": "active" },
+        { "expr": "bullmq_jobs_failed{queue=\"generation\"}", "legendFormat": "failed" }
+      ],
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 }
+    },
+    {
+      "id": 2,
+      "type": "stat",
+      "title": "Generation failure rate (1h)",
+      "datasource": "Prometheus",
+      "targets": [
+        { "expr": "sum(rate(generation_total{status=\"failed\"}[1h])) / sum(rate(generation_total[1h]))" }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 0.05 },
+              { "color": "red", "value": 0.1 }
+            ]
+          },
+          "unit": "percentunit"
+        }
+      },
+      "gridPos": { "h": 8, "w": 6, "x": 12, "y": 0 }
+    },
+    {
+      "id": 3,
+      "type": "timeseries",
+      "title": "Generations per model",
+      "datasource": "Prometheus",
+      "targets": [
+        { "expr": "sum by (provider) (rate(generation_total[5m]))", "legendFormat": "{{provider}}" }
+      ],
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 }
+    },
+    {
+      "id": 4,
+      "type": "timeseries",
+      "title": "Estimated spend ($/h)",
+      "datasource": "Prometheus",
+      "targets": [
+        { "expr": "sum by (provider) (rate(generation_cost_usd_total[5m])) * 3600", "legendFormat": "{{provider}}" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "currencyUSD" } },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 }
+    },
+    {
+      "id": 5,
+      "type": "timeseries",
+      "title": "API p95 latency",
+      "datasource": "Prometheus",
+      "targets": [
+        { "expr": "histogram_quantile(0.95, sum by (le, route) (rate(http_request_duration_seconds_bucket[5m])))", "legendFormat": "{{route}}" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "s" } },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 16 }
+    },
+    {
+      "id": 6,
+      "type": "timeseries",
+      "title": "Worker concurrency by queue",
+      "datasource": "Prometheus",
+      "targets": [
+        { "expr": "bullmq_workers_active", "legendFormat": "{{queue}}" }
+      ],
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 16 }
+    }
+  ]
+}

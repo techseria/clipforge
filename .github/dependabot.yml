@@ -1,0 +1,71 @@
+version: 2
+updates:
+  # npm dependencies (root, apps, packages)
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+    open-pull-requests-limit: 10
+    labels:
+      - "deps:npm"
+      - "type:chore"
+    groups:
+      patch-and-minor:
+        applies-to: version-updates
+        update-types:
+          - "minor"
+          - "patch"
+      major:
+        applies-to: version-updates
+        update-types:
+          - "major"
+    commit-message:
+      prefix: "chore(deps)"
+    # Auto-merge patch updates for low-risk dependencies
+    # (use with caution — only enable if you have tests + green CI)
+    # target-branch: "main"
+    # reviewers:
+    #   - "techseria/engineering"
+    ignore:
+      # Major version upgrades for packages with breaking changes
+      # require manual review
+      - dependency-name: "drizzle-orm"
+        versions: ["1.x", "2.x", "3.x"]
+      - dependency-name: "react"
+        versions: ["19.x", "20.x"]
+      - dependency-name: "vite"
+        versions: ["6.x", "7.x"]
+
+  # Docker base images
+  - package-ecosystem: "docker"
+    directory: "/apps/api"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "deps:docker"
+      - "type:chore"
+  - package-ecosystem: "docker"
+    directory: "/apps/worker"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "deps:docker"
+      - "type:chore"
+  - package-ecosystem: "docker"
+    directory: "/apps/web"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "deps:docker"
+      - "type:chore"
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "deps:github-actions"
+      - "type:chore"

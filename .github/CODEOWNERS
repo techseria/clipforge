@@ -1,0 +1,17 @@
+# CODEOWNERS — default reviewers for ClipForge
+# See https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default: all changes require review from the Techseria engineering team
+*                                       @techseria/engineering
+
+# Security-sensitive paths get stricter review
+/SECURITY.md                           @techseria/security
+/infra/                                @techseria/engineering @techseria/security
+/apps/api/src/middleware/               @techseria/engineering @techseria/security
+/apps/api/src/routes/auth.ts            @techseria/engineering @techseria/security
+/apps/api/src/routes/admin.ts           @techseria/engineering @techseria/security
+/packages/db/                          @techseria/engineering
+/packages/shared/                      @techseria/engineering
+/packages/storage/                     @techseria/engineering
+/docker-compose.yml                    @techseria/engineering
+/.github/workflows/                    @techseria/engineering

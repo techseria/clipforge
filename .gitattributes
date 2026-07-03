@@ -1,0 +1,70 @@
+# Git attributes
+# https://git-scm.com/docs/gitattributes
+
+# Auto-detect text files
+* text=auto eol=lf
+
+# Force LF line endings for source code
+*.ts          text eol=lf
+*.tsx         text eol=lf
+*.js          text eol=lf
+*.jsx         text eol=lf
+*.mjs         text eol=lf
+*.cjs         text eol=lf
+*.json        text eol=lf
+*.yml         text eol=lf
+*.yaml        text eol=lf
+*.md          text eol=lf
+*.css         text eol=lf
+*.html        text eol=lf
+*.sh          text eol=lf
+
+# Shell scripts MUST have LF line endings (CRLF breaks them)
+*.sh          text eol=lf
+
+# Windows batch files
+*.bat         text eol=crlf
+*.cmd         text eol=crlf
+*.ps1         text eol=crlf
+
+# Dockerfiles
+Dockerfile     text eol=lf
+*.dockerfile   text eol=lf
+
+# Binary files
+*.png          binary
+*.jpg          binary
+*.jpeg         binary
+*.gif          binary
+*.ico          binary
+*.webp         binary
+*.pdf          binary
+*.zip          binary
+*.tar          binary
+*.gz           binary
+*.mp4          binary
+*.mov          binary
+*.webm         binary
+*.mp3          binary
+*.wav          binary
+*.ttf          binary
+*.woff         binary
+*.woff2        binary
+*.eot          binary
+
+# Generated files (don't diff line-by-line, but still allow merges)
+pnpm-lock.yaml      merge=binary
+package-lock.json   merge=binary
+yarn.lock           merge=binary
+docs/API.md         linguist-generated
+
+# Export GitHub linguist overrides
+.github/linguist.yml   export-ignore
+
+# Exclude from GitHub stats
+*.min.js        export-ignore
+*.min.css       export-ignore
+dist/            export-ignore
+build/           export-ignore
+node_modules/    export-ignore
+coverage/        export-ignore

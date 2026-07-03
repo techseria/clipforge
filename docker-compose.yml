@@ -1,0 +1,184 @@
+# ClipForge development environment
+# Usage: docker compose up -d
+#
+# Storage: clips, uploads, and merged videos are stored on a shared Docker
+# volume mounted at /data/clips on the API + worker containers. The web UI
+# streams them via the API at GET /api/v1/files/<key>.
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: clipforge-postgres
+    environment:
+      POSTGRES_USER: clipforge
+      POSTGRES_PASSWORD: clipforge_dev
+      POSTGRES_DB: clipforge
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U clipforge"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: clipforge-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: clipforge-mailhog
+    ports:
+      - "1025:1025" # SMTP
+      - "8025:8025" # Web UI
+
+  api:
+    build:
+      context: .
+      dockerfile: ./apps/api/Dockerfile
+    container_name: clipforge-api
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgres://clipforge:clipforge_dev@postgres:5432/clipforge
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: dev_secret_change_in_prod
+      PORT: 4000
+      CLIPS_DIR: /data/clips
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./apps/api:/app/apps/api
+      - ./packages:/app/packages
+      - /app/node_modules
+      - clips_data:/data/clips
+
+  worker:
+    build:
+      context: .
+      dockerfile: ./apps/worker/Dockerfile
+    container_name: clipforge-worker
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgres://clipforge:clipforge_dev@postgres:5432/clipforge
+      REDIS_URL: redis://redis:6379
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-dev_placeholder}
+      MINIMAX_API_KEY: ${MINIMAX_API_KEY:-dev_placeholder}
+      CLIPS_DIR: /data/clips
+    volumes:
+      - ./apps/worker:/app/apps/worker
+      - ./packages:/app/packages
+      - /app/node_modules
+      - clips_data:/data/clips
+
+  web:
+    build:
+      context: .
+      dockerfile: ./apps/web/Dockerfile
+    container_name: clipforge-web
+    depends_on:
+      - api
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_URL: http://localhost:4000
+    volumes:
+      - ./apps/web:/app/apps/web
+      - ./packages:/app/packages
+      - /app/node_modules
+
+  # ─── Observability (Phase 4 — T4.7) ─────────────────────────────────
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: clipforge-prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    volumes:
+      - ./infra/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+    depends_on:
+      - api
+      - worker
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: clipforge-grafana
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: clipforge
+      GF_AUTH_ANONYMOUS_ENABLED: 'true'
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Viewer
+    volumes:
+      - ./infra/grafana/dashboards:/var/lib/grafana/dashboards:ro
+      - ./infra/grafana/provisioning:/etc/grafana/provisioning:ro
+      - grafana_data:/var/lib/grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+
+  loki:
+    image: grafana/loki:2.9.0
+    container_name: clipforge-loki
+    command: -config.file=/etc/loki/local-config.yaml
+    ports:
+      - "3100:3100"
+    volumes:
+      - loki_data:/loki
+
+  promtail:
+    image: grafana/promtail:2.9.0
+    container_name: clipforge-promtail
+    command: -config.file=/etc/promtail/config.yml
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./infra/promtail/config.yml:/etc/promtail/config.yml:ro
+    depends_on:
+      - loki
+
+  redis-exporter:
+    image: oliver006/redis_exporter:latest
+    container_name: clipforge-redis-exporter
+    environment:
+      REDIS_ADDR: redis:6379
+    ports:
+      - "9121:9121"
+
+  postgres-exporter:
+    image: prometheuscommunity/postgres-exporter:latest
+    container_name: clipforge-postgres-exporter
+    environment:
+      DATA_SOURCE_NAME: "postgres://clipforge:clipforge_dev@postgres:5432/clipforge?sslmode=disable"
+    ports:
+      - "9187:9187"
+
+volumes:
+  postgres_data:
+  redis_data:
+  clips_data:    # shared between API + worker; persisted across restarts
+  prometheus_data:
+  grafana_data:
+  loki_data:

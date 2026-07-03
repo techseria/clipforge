@@ -1,0 +1,24 @@
+# Prometheus scrape config for ClipForge
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: clipforge-api
+    static_configs:
+      - targets: ['api:4000']
+    metrics_path: /metrics
+
+  - job_name: clipforge-worker
+    static_configs:
+      - targets: ['worker:9090']
+    metrics_path: /metrics
+
+  - job_name: redis
+    static_configs:
+      - targets: ['redis-exporter:9121']
+
+  - job_name: postgres
+    static_configs:
+      - targets: ['postgres-exporter:9187']

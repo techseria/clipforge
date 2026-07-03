@@ -1,0 +1,97 @@
+ClipForge
+Copyright 2026 Techseria (https://techseria.com)
+
+This product includes software developed by Techseria.
+
+Licensed under the GNU Affero General Public License, Version 3.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    https://www.gnu.org/licenses/agpl-3.0.txt
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+──────────────────────────────────────────────────────────────────────
+
+THIRD-PARTY OPEN SOURCE COMPONENTS
+
+ClipForge is built on the shoulders of the open-source community. We
+gratefully acknowledge the following projects (full license texts in
+each respective node_modules directory):
+
+Runtime / Build:
+  - Node.js — MIT
+  - TypeScript — Apache-2.0
+  - tsx — MIT
+  - pnpm — MIT
+  - npm — Artistic-2.0
+
+Backend:
+  - Express — MIT
+  - express-rate-limit — MIT
+  - rate-limit-redis — MIT
+  - helmet — MIT
+  - cookie-parser — MIT
+  - cors — MIT
+  - pino — MIT
+  - pino-http — MIT
+  - ws — MIT
+  - argon2 — MIT
+  - zod — MIT
+  - dotenv — BSD-2-Clause
+  - multer — MIT
+  - ioredis — MIT
+  - bullmq — MIT
+  - drizzle-orm — Apache-2.0
+  - postgres — MIT
+  - undici — MIT
+  - @aws-sdk/client-s3 — Apache-2.0
+  - @aws-sdk/s3-request-presigner — Apache-2.0
+
+Frontend:
+  - React — MIT
+  - Vite — MIT
+  - TanStack Router — MIT
+  - TanStack Query — MIT
+  - TanStack Table — MIT
+  - @dnd-kit/core, /sortable, /utilities — MIT
+  - Tailwind CSS — MIT
+  - lucide-react — ISC
+  - zustand — MIT
+  - clsx — MIT
+  - class-variance-authority — Apache-2.0
+  - tailwind-merge — MIT
+
+Media processing (in worker containers):
+  - FFmpeg — LGPL-2.1+ (or GPL-2.0 depending on build configuration)
+
+Infrastructure (Docker images):
+  - postgres — PostgreSQL License
+  - redis — BSD-3-Clause
+  - minio — Apache-2.0
+  - prometheus — Apache-2.0
+  - grafana — AGPL-3.0
+  - loki — AGPL-3.0
+  - promtail — AGPL-3.0
+
+The complete license texts for these components are available in their
+respective source distributions.
+
+──────────────────────────────────────────────────────────────────────
+
+TRADEMARK
+
+"ClipForge" and the ClipForge logo are trademarks of Techseria.
+All other trademarks are the property of their respective owners.
+
+──────────────────────────────────────────────────────────────────────
+
+CONTACT
+
+  Techseria
+  Website: https://techseria.com
+  Email:   hello@techseria.com

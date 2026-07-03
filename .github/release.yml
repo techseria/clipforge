@@ -1,0 +1,71 @@
+changelog:
+  exclude:
+    labels:
+      - ignore-for-release
+      - duplicate
+      - invalid
+    authors:
+      - dependabot
+      - renovate
+  categories:
+    - title: 🚀 Features
+      labels:
+        - "feature"
+        - "enhancement"
+    - title: 🐛 Bug Fixes
+      labels:
+        - "bug"
+        - "fix"
+    - title: 📝 Documentation
+      labels:
+        - "documentation"
+        - "docs"
+    - title: 🧹 Maintenance
+      labels:
+        - "chore"
+        - "refactor"
+        - "dependencies"
+        - "deps"
+    - title: 🔒 Security
+      labels:
+        - "security"
+    - title: ⚠️ Breaking Changes
+      labels:
+        - "breaking"
+
+name-template: "v$RESOLVED_VERSION"
+tag-template: "v$RESOLVED_VERSION"
+version-resolver:
+  major:
+    labels: ["breaking", "major"]
+  minor:
+    labels: ["feature", "enhancement", "minor"]
+  patch:
+    labels: ["bug", "fix", "patch", "documentation", "docs", "chore"]
+  default: patch
+
+categories-template: |
+  ## 🚀 Features
+  {{range .Features}}
+  - {{.Title}} (#{{.Number}}) by {{.Author}}
+  {{end}}
+  ## 🐛 Bug Fixes
+  {{range .Bug Fixes}}
+  - {{.Title}} (#{{.Number}}) by {{.Author}}
+  {{end}}
+  ## 📝 Documentation
+  {{range .Documentation}}
+  - {{.Title}} (#{{.Number}}) by {{.Author}}
+  {{end}}
+  ## 🧹 Maintenance
+  {{range .Maintenance}}
+  - {{.Title}} (#{{.Number}}) by {{.Author}}
+  {{end}}
+  ## 🔒 Security
+  {{range .Security}}
+  - {{.Title}} (#{{.Number}}) by {{.Author}}
+  {{end}}
+  ## ⚠️ Breaking Changes
+  {{range .Breaking Changes}}
+  - {{.Title}} (#{{.Number}}) by {{.Author}}
+  {{end}}

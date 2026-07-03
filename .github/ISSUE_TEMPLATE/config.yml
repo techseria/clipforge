@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 GitHub Discussions
+    url: https://github.com/techseria/clipforge/discussions
+    about: General questions, ideas, and community support
+  - name: 🔒 Security disclosure
+    url: https://github.com/techseria/clipforge/security/advisories/new
+    about: For private vulnerability reports (do NOT use public issues)
+  - name: 📧 Email support
+    url: mailto:support@techseria.com
+    about: For commercial support contracts

@@ -1,0 +1,54 @@
+cff-version: 1.2.0
+message: |
+  If you use ClipForge in academic research, please cite it using the
+  metadata in this file.
+title: "ClipForge"
+subtitle: "AI Video Generation Platform for Marketers"
+version: 1.0.0
+date-released: 2026-07-03
+url: "https://github.com/techseria/clipforge"
+repository-code: "https://github.com/techseria/clipforge"
+repository-artifact: "https://github.com/techseria/clipforge/pkgs/container/clipforge-api"
+license: AGPL-3.0
+license-url: "https://www.gnu.org/licenses/agpl-3.0.txt"
+type: software
+keywords:
+  - ai-video-generation
+  - text-to-video
+  - gemini-veo
+  - hailuo
+  - video-editing
+  - marketing
+  - ffmpeg
+  - bullmq
+  - react
+  - typescript
+  - open-source
+authors:
+  - name: "Techseria Engineering"
+    email: "engineering@techseria.com"
+    affiliation: "Techseria"
+    website: "https://techseria.com"
+references:
+  - type: "software"
+    title: "ClipForge PRD"
+    url: "https://github.com/techseria/clipforge/blob/main/ClipForge_PRD.md"
+  - type: "software"
+    title: "ClipForge architecture"
+    url: "https://github.com/techseria/clipforge/blob/main/docs/ARCHITECTURE.md"
+preferred-citation:
+  type: software
+  title: "ClipForge 1.0.0"
+  authors:
+    - name: "Techseria Engineering"
+  year: 2026
+  url: "https://github.com/techseria/clipforge"
+  version: "1.0.0"
+  date-released: "2026-07-03"
+notes: |
+  AGPL-3.0 licensed. Copyright 2026 Techseria.
+  Please also cite the upstream AI providers used in your work:
+    - Google Gemini Veo (https://ai.google.dev/gemini-api/docs/video)
+    - MiniMax Hailuo (https://platform.MiniMax.io)
+  If you used the Whisper captions feature, cite OpenAI Whisper:
+    - Radford et al. (2022). "Robust Speech Recognition via Large-Scale Weak Supervision."
