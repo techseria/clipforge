@@ -1,6 +1,6 @@
 # Multi-stage Dockerfile for @clipforge/api
 
-FROM node:20-alpine AS base
+FROM node:26-alpine AS base
 RUN corepack enable && corepack prepare pnpm@8.15.0 --activate
 WORKDIR /app
 
@@ -21,7 +21,7 @@ RUN pnpm --filter @clipforge/db run generate
 RUN pnpm --filter @clipforge/shared run build
 RUN pnpm --filter @clipforge/api run build
 
-FROM node:20-alpine AS runner
+FROM node:26-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 COPY --from=build /app/apps/api/dist ./apps/api/dist
