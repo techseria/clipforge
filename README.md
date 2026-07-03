@@ -22,7 +22,6 @@ The product was designed around three real frustrations with off-the-shelf AI vi
 
 ## Status
 
-**V1.0 — released.** All 48 tasks in the [Tasks.md](Tasks.md) tracker are complete and live-verified end-to-end through the Chrome DevTools UI. See [docs/RELEASE_NOTES.md](docs/RELEASE_NOTES.md) for what works and what doesn't.
 
 The full PRD that scoped this release is in [ClipForge_PRD.md](ClipForge_PRD.md).
 
