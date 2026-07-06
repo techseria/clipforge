@@ -15,9 +15,9 @@
   "dependencies": {
     "@clipforge/db": "*",
     "drizzle-orm": "^0.30.10",
-    "zod": "^3.23.8"
+    "zod": "^4.4.3"
   },
   "devDependencies": {
-    "typescript": "^5.4.5"
+    "typescript": "^6.0.3"
   }
 }
