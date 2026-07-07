@@ -1,6 +1,6 @@
 # Multi-stage Dockerfile for @clipforge/web (Vite SPA)
 
-FROM node:20-alpine AS base
+FROM node:26-alpine AS base
 RUN corepack enable && corepack prepare pnpm@8.15.0 --activate
 WORKDIR /app
 
