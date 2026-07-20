@@ -18,9 +18,9 @@
     "db:studio": "npm run studio --workspace=packages/db"
   },
   "devDependencies": {
-    "concurrently": "^8.2.2",
-    "typescript": "^5.4.5",
-    "@types/node": "^20.12.7"
+    "concurrently": "^10.0.3",
+    "typescript": "^7.0.2",
+    "@types/node": "^26.1.1"
   },
   "engines": {
     "node": ">=20.10.0",
